@@ -8,6 +8,7 @@ var firebaseConfig = {
 	appId: "1:801768219038:web:803e7224fe0b848e50f68f",
 	measurementId: "G-QZWLSG5G9B"
   };
+
   firebase.initializeApp(firebaseConfig)
 
 
@@ -28,3 +29,12 @@ function botao() {
 		console.log("Campo vazio")
 	}
 }
+
+
+
+// var myModal = document.getElementById('myModal')
+// var myInput = document.getElementById('myInput')
+
+// myModal.addEventListener('shown.bs.modal', function () {
+//   myInput.focus()
+// })
