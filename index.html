@@ -1,74 +1,104 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+  <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
-  <script src= "https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
-  <script src=  "https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
-  <script src= "app.js"></script>
+    <script src= "https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src=  "https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+    <script src= "app.js"></script>
 
-  <title></title>
+    <link rel="icon" href="icone.svg">
+    <title>Firebase</title>
 
-</head>
+    <style>
+      input{
+        text-transform:capitalize;
+      }
+    </style>
 
-<body>
+  </head>
 
-  <div class="container mt-5">
-    <div class="form-group">
-      <input type="text"
-        class="form-control mt-2" id="inNome"  placeholder="Nome">
-      <small class="form-text text-muted"></small>
-      <input type="text"
-        class="form-control mt-2" id="inValor" placeholder="Valor">
-      <small class="form-text text-muted"></small>
-      <a id="" class="btn btn-primary mt-2" href="#" role="button" onclick="botao()">Salvar</a>
-    </div>
-  </div>
+  <body onload="inicioPagina()" class="container" style="max-width: 500px;" >
 
+    <div class="container mt-5" >
+      <div class="input-group">
 
-
-
-  <!-- Button trigger modal -->
-  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button> -->
-
-  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="input-group mb-3">
+          <input id="inNome" type="text" class="form-control" placeholder="Nome" aria-label="Username" aria-describedby="basic-addon1">
         </div>
-        <div class="modal-body">
-          ...
+
+        <div class="input-group mb-3">
+          <input id="inIdade" type="text" class="form-control" placeholder="idade" aria-label="Username" aria-describedby="basic-addon1">
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+
+        <div class="input-group mb-3">
+          <input id="inCor" type="text" class="form-control" placeholder="Cor" aria-label="Username" aria-describedby="basic-addon1">
         </div>
+
+        <div class="input-group mb-3">
+          <input id="inRaca" type="text" class="form-control" placeholder="Raça" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <input id="inPelo" type="text" class="form-control" placeholder="Pelo" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <input id="inPeso" type="text" class="form-control" placeholder="Peso" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
       </div>
+      <!-- end class form group -->
+      <a id="btnSalvar" class="input-group btn btn-primary mt-2" href="#" role="button" onclick="botao()">Salva</a>
     </div>
-  </div> -->
+    <!-- end class container -->
 
 
 
 
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Idade</th>
+          <th scope="col">Cor</th>
+          <th scope="col">Raça</th>
+          <th scope="col">Pelo</th>
+          <th scope="col">Peso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Maui</td>
+          <td>4 anos</td>
+          <td>Branco</td>
+          <td>Lhasa</td>
+          <td>Grande</td>
+          <td>10kg</td>
+          
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>#</td>
+          <td>#</td>
+          <td>#</td>
+          <td>#</td>
+          <td>#</td>
+          <td>#</td>
+        </tr>
+      </tbody>
+    </table>
 
 
 
 
-
-
-
-
-
-
-</body>
+  </body>
 </html>

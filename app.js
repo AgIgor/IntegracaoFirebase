@@ -14,27 +14,62 @@ var firebaseConfig = {
 
 
 function botao() {
+
+		let pet = {
+			"nome":document.getElementById("inNome")		.value.toUpperCase().trim(),
+			"idade": document.getElementById("inIdade")		.value.toUpperCase().trim(),
+			"cor": document.getElementById("inCor")			.value.toUpperCase().trim(),
+			"pelo": document.getElementById("inPelo")		.value.toUpperCase().trim(),
+			"raca": document.getElementById("inRaca")		.value.toUpperCase().trim(),
+			"peso": document.getElementById("inPeso")		.value.toUpperCase().trim()
+		}//end pet obj
+
+
+		// firebase.database().ref("valor").child("valor").set("valor")
+
+		// firebase.database().ref(pet.nome).child("IDADE").set(pet.idade)
+		// firebase.database().ref(pet.nome).child("COR")	.set(pet.cor)
+		// firebase.database().ref(pet.nome).child("PELO")	.set(pet.pelo)
+		// firebase.database().ref(pet.nome).child("RAÇA")	.set(pet.raca)
+		// firebase.database().ref(pet.nome).child("PESO").set(pet.peso)
+
+		firebase.database().ref(pet.nome).set(	{	
+													IDADE 	: pet.idade,
+													COR 	: pet.cor,
+													PELO 	: pet.pelo,
+													RAÇA 	: pet.raca,
+													PESO 	: pet.peso
+												})
+		
+
+
+		// LIMPA CAMPOS
+		// 	// document.getElementById("inNome").value = ""
+		// 	// document.getElementById("inIdade").value = ""
+		// 	// document.getElementById("inCor").value = ""
+
+		console.log(pet)
+
+}//end fucn bot
+
+
+function inicioPagina(){
+	// console.log("ok")
 	
-	let valor = document.getElementById("inValor").value
-	let nome = document.getElementById("inNome").value
+	
+}//end func pagina load
 
-	if(valor != "" && nome != ""){
 
-		console.log(nome, valor) 
-		firebase.database().ref(nome).set(valor)
+function botaoFalse(){
 
-		document.getElementById("inNome").value = ""
-		document.getElementById("inValor").value = ""
-	}else{
-		console.log("Campo vazio")
-	}
+	document.getElementById("btnSalvar").setAttribute("onClick", "botao()")
+
+	var test = document.getElementById("btnSalvar").getAttribute("onClick")
+	console.log(test)
+
 }
 
+	 
 
+	
 
-// var myModal = document.getElementById('myModal')
-// var myInput = document.getElementById('myInput')
-
-// myModal.addEventListener('shown.bs.modal', function () {
-//   myInput.focus()
-// })
