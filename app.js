@@ -217,22 +217,22 @@ function obter(){
 
 
 
-function recuperarDados(){
-	firebase.database().ref("MAUI").once("value",function(snapshot){
-		snapshot.foreach(
-			function(childSnapshot){
-				let test = childSnapshot.val().COR
-				// let idade = childSnapshot.val().IDADE
-				// let cor = childSnapshot.val().COR
-				// let pelo = childSnapshot.val().PELO
-				// let raca = childSnapshot.val().RACA
-				// let peso = childSnapshot.val().PESO
+// function recuperarDados(){
+// 	firebase.database().ref("MAUI").once("value",function(snapshot){
+// 		snapshot.foreach(
+// 			function(childSnapshot){
+// 				let test = childSnapshot.val().COR
+// 				// let idade = childSnapshot.val().IDADE
+// 				// let cor = childSnapshot.val().COR
+// 				// let pelo = childSnapshot.val().PELO
+// 				// let raca = childSnapshot.val().RACA
+// 				// let peso = childSnapshot.val().PESO
 
-				console.log(test)
-			}
-		)
-	})
-}//END FUCN RECUP DADOS
-console.log("ok")
+// 				console.log(test)
+// 			}
+// 		)
+// 	})
+// }//END FUCN RECUP DADOS
+// console.log("ok")
 
 
