@@ -30,32 +30,50 @@
       <div class="input-group">
 
         <div class="input-group mb-3">
-          <input id="inNome" type="text" class="form-control" placeholder="Nome" aria-label="Username" aria-describedby="basic-addon1">
+          <input id="inNome" type="text" class="form-control" placeholder="Nome" aria-label="Nome" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
-          <input id="inIdade" type="text" class="form-control" placeholder="idade" aria-label="Username" aria-describedby="basic-addon1">
+          <input id="inIdade" type="text" class="form-control" placeholder="idade" aria-label="Idade" aria-describedby="basic-addon1">
+
+          <input type="radio" class="btn-check" name="tipoIdade" id="anos" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="anos">Anos</label>
+
+          <input type="radio" class="btn-check" name="tipoIdade" id="meses" autocomplete="off">
+          <label class="btn btn-outline-primary" for="meses">Meses</label>
+
+          <input type="radio" class="btn-check" name="tipoIdade" id="dias" autocomplete="off">
+          <label class="btn btn-outline-primary" for="dias">Dias</label>
+        </div>
+        
+
+        <div class="input-group mb-3">
+          <input id="inCor" type="text" class="form-control" placeholder="Cor" aria-label="Cor" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
-          <input id="inCor" type="text" class="form-control" placeholder="Cor" aria-label="Username" aria-describedby="basic-addon1">
+          <input id="inRaca" type="text" class="form-control" placeholder="Raça" aria-label="Raca" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
-          <input id="inRaca" type="text" class="form-control" placeholder="Raça" aria-label="Username" aria-describedby="basic-addon1">
+          <input id="inPelo" type="text" class="form-control" placeholder="Pelo" aria-label="Pelo" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
-          <input id="inPelo" type="text" class="form-control" placeholder="Pelo" aria-label="Username" aria-describedby="basic-addon1">
-        </div>
+          <input id="inPeso" type="text" class="form-control" placeholder="Peso" aria-label="Peso" aria-describedby="basic-addon1">
 
-        <div class="input-group mb-3">
-          <input id="inPeso" type="text" class="form-control" placeholder="Peso" aria-label="Username" aria-describedby="basic-addon1">
+          <input type="radio" class="btn-check" name="tipoPeso"  id="kilo" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="kilo">Kilos</label>
+
+          <input type="radio" class="btn-check" name="tipoPeso" id="grama" autocomplete="off">
+          <label class="btn btn-outline-primary" for="grama">Gramas</label>
         </div>
 
       </div>
       <!-- end class form group -->
-      <a id="btnSalvar" class="input-group btn btn-primary mt-2" href="#" role="button" onclick="botao()">Salva</a>
+      <a id="btnSalvar" class="input-group btn btn-primary mt-2" href="#" role="button" onclick="botao()">Salvar</a>
+      <a id="btnSalvar" class="input-group btn btn-primary mt-2" href="#" role="button" onclick="obter()">Obter</a>
+      <!-- <a id="btnSalvar" class="input-group btn btn-primary mt-2" href="#" role="button" onclick="atualiza()">Atualizar</a> -->
     </div>
     <!-- end class container -->
 
