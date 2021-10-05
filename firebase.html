@@ -6,21 +6,35 @@
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-    <script src= "https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
-    <script src= "https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
-    <script src= "https://www.gstatic.com/firebasejs/6.1.1/firebase-firestore.js"></script>
-    <!-- <script src= "https://www.gstatic.com/firebasejs/6.1.1/firebase.js"></script> -->
-
+    <script src= "https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <script src= "https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+    <script src= "https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src='firebase.js'></script>
 </head>
-<body style="margin-left: auto;margin-right: auto; width: 200px;margin-top: 100px;">
+<body>
+    <div class="container mt-5">
+        <table>
+            <tr>
+                <td><input class="form-control" value="Pai" placeholder="Ref" id="inRef"></input></td>
+                <td><input class="form-control" value="Filho" placeholder="Child" id="inChild"></input></td>
+                <td><input class="form-control" value="Valor" placeholder="Set" id="inSet1"></input></td>
+                <td><button class="btn btn-success" onclick="salvarFirebase()">Salvar Firebase</button></td>
+                <td><button class="btn btn-danger" onclick="removerFirebase()">Remove Firebase</button></td>
+            </tr>
+    
+            <tr>
+                <td><input class="form-control" value="" placeholder="Collection" id="inColl"></input></td>
+                <td><input class="form-control" value="" placeholder="Doc" id="inDoc"></input></td>
+                <td><input class="form-control" value="" placeholder="Set" id="inSet2"></input></td>
+                <td><button class="btn btn-success form-control" onclick="salvarFirestore()">Salvar Firestore</button></td>
+                <td><button class="btn btn-danger" onclick="removerFirestore()">Remove Firestore</button></td>
+            </tr>
+        </table>
+    </div>
 
-    <form>
-        <input style="margin-top: 10px;" type="text"></input>
-        <input style="margin-top: 10px;" type="text"></input>
-    </form>
 
-    <button style="margin-top: 10px;" onclick="salvar()">Salvar</button>
- 
 </body>
 </html>

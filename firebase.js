@@ -1,55 +1,149 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyBI87x76XQkP-1zO_OsWCQ40z0xGb6mdL0",
-    authDomain: "teste-firebase-ntp.firebaseapp.com",
-    databaseURL: "https://teste-firebase-ntp-default-rtdb.firebaseio.com",
-    projectId: "teste-firebase-ntp",
-    storageBucket: "teste-firebase-ntp.appspot.com",
-    messagingSenderId: "801768219038",
-    appId: "1:801768219038:web:803e7224fe0b848e50f68f",
-    measurementId: "G-QZWLSG5G9B"
-  };
+  apiKey: "AIzaSyAYGQq-JV81hYECP73faMCwzgk_Ay0Am-Y",
+  authDomain: "databasefirebasefirestore.firebaseapp.com",
+  projectId: "databasefirebasefirestore",
+  storageBucket: "databasefirebasefirestore.appspot.com",
+  messagingSenderId: "407141110375",
+  appId: "1:407141110375:web:1b1ecc00c85aabd2713ac2",
+  measurementId: "G-Y2QDD0H8NF"
+}
 
-  firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)
 
+const dbBase = firebase.database()
+const dbStore = firebase.firestore()
 
-console.log("ok")
-
-const dbFirebase = firebase.database()
-
-dbFirebase.ref("pasta").child("abc").set("123")
+// dbBase.ref("pasta").child("abc").set("123")
 
 // firebase.database().ref("teste").set("valor")
 // firebase.database().ref().child("valor").remove()
 
 // firebase.firestore().ref("valor").child("valor").set("valor")
 
-const db = firebase.firestore()
+function recuperaValorStore(){
+  let colecao = document.getElementById("inColl").value
+  let documento = document.getElementById("inDoc").value
+  let valor = document.getElementById("inSet2").value
 
-function salvar(){
-  // db.collection("teste 1").doc(" pasta").set({
-//   name: "dado",
-//   state: "1",
-//   country: "2"
-// })
-// .then(() => {
-//   console.log("Document successfully written!");
-// })
-// .catch((error) => {
-//   console.error("Error writing document: ", error);
-// });
+  return ({
+            // colecao, 
+            // documento, 
+            valor
+          })
+}//end fucn recupera valor store
 
-db.collection("users").doc().set(
-  { nome : "igor",
-    idade : "24",
-    altura : "1.82"  
-  })
 
-  db.collection("cars").doc().set(
-    { nome : "civic",
-      cor : "preto",
-      portas : "4"  
-    })
-}
+
+function salvarFirestore(){
+
+  console.log(recuperaValorStore())
+
+
+  // dbStore.collection("coleçao").doc("doc").set("set")
+
+  // dbStore.collection("users").doc().set( //valor aleatoria mem doc
+  // { coleca : "igor",
+  //   document : "24",
+  //   valor : "1.82"  
+  // })
+
+  let colecao = document.getElementById("inColl").value
+  let documento = document.getElementById("inDoc").value
+  let valor = document.getElementById("inSet2").value
+
+  dbStore.collection(colecao).doc(documento).set(recuperaValorStore())
+
+
+
+.then(() => {
+  console.log("Documento salvo!");
+})
+.catch((error) => {
+  console.error("Error: ", error);
+});
+
+}//end salva firestore
+
+function removerFirestore(){
+  console.log("removeStore")
+
+}//end remover firestore
+
+
+
+
+
+
+
+
+
+function salvarFirebase(){
+  console.log("salvarBase")
+
+  let pai = document.getElementById("inRef").value
+  let filho = document.getElementById("inChild").value
+  let valor = document.getElementById("inSet1").value
+
+  dbBase.ref(pai).child(filho).set(valor)
+
+
+
+.then(() => {
+  console.log("Documento salvo!");
+})
+.catch((error) => {
+  console.error("Error: ", error);
+});
+
+
+
+}//end salva firebase
+
+
+function removerFirebase(){
+  let pai = document.getElementById("inRef").value
+  let filho = document.getElementById("inChild").value
+  let valor = document.getElementById("inSet1").value
+
+  dbBase.ref(pai).remove()
+
+
+
+.then(() => {
+  console.log("Documento salvo!");
+})
+.catch((error) => {
+  console.error("Error: ", error);
+});
+
+}//end remover firebase
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   db.collection("cars").doc().set(
+//     { nome : "civic",
+//       cor : "preto",
+//       portas : "4"  
+//     })
+
 
 
   // firebase.firestore().collection("users").doc().set()
@@ -60,5 +154,3 @@ db.collection("users").doc().set(
 // let val = true
 // val ? console.log("true"):console.log("false")
  
- 
-

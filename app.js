@@ -1,12 +1,11 @@
-var firebaseConfig = {
-	apiKey: "AIzaSyBI87x76XQkP-1zO_OsWCQ40z0xGb6mdL0",
-	authDomain: "teste-firebase-ntp.firebaseapp.com",
-	databaseURL: "https://teste-firebase-ntp-default-rtdb.firebaseio.com",
-	projectId: "teste-firebase-ntp",
-	storageBucket: "teste-firebase-ntp.appspot.com",
-	messagingSenderId: "801768219038",
-	appId: "1:801768219038:web:803e7224fe0b848e50f68f",
-	measurementId: "G-QZWLSG5G9B"
+const firebaseConfig = {
+    apiKey: "AIzaSyAYGQq-JV81hYECP73faMCwzgk_Ay0Am-Y",
+    authDomain: "databasefirebasefirestore.firebaseapp.com",
+    projectId: "databasefirebasefirestore",
+    storageBucket: "databasefirebasefirestore.appspot.com",
+    messagingSenderId: "407141110375",
+    appId: "1:407141110375:web:1b1ecc00c85aabd2713ac2",
+    measurementId: "G-Y2QDD0H8NF"
   };
 
   firebase.initializeApp(firebaseConfig)
