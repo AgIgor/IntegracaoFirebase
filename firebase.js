@@ -204,7 +204,7 @@ let valorRecebido = null
 //==================================================================================//
 
 function inicioPagina() {
-  setTimeout(function(){ btnF5() }, 3000)
+  setTimeout(function(){ btnF5() }, 1000)//ESPERA 1 SEGUNDO E MOSTRA LISTA
 
 }
 
