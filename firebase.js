@@ -140,6 +140,14 @@ function removerFirebase(){
 //     igoraNameRef.update({ first: 'Igor', last: 'Angeli' });
 
 
+//POST DE VALORES COM IDs ALEATORIOS
+
+// var postListRef = firebase.database().ref('posts');
+// var newPostRef = postListRef.push();
+// newPostRef.set({
+//     // ...
+// });
+
 //REMOVE VALORES
 
 // var igorRef = firebase.database().ref('users/igor/name');
@@ -160,7 +168,7 @@ function removerFirebase(){
 //     return valorAtual += 1
 // });
 
-let valorRecebido = null
+
 
 //RECUPERA VALOR EM NUVEM
 
@@ -180,16 +188,30 @@ let valorRecebido = null
 //       });
 
 
+//RECUPERA VALORES E PRINTA INDIVIDUALMENTE      
+  // dbRef.once('value', (snapshot) => {
+  //   snapshot.forEach((childSnapshot) => {
+  //     var childKey = childSnapshot.key
+  //     var childData = childSnapshot.val()
+
+  //     console.log(childKey,childData)
+  //     // ...
+  //   });
+  // });
+
+
+
       
 
 //DETECTAR ALTERAÇOES
 
-  firebase.database().ref("users").on('value', (snapshot) => {
-        const data = snapshot.val()
-        console.log(data)
-        // updateStarCount(postElement, data)
-        valorRecebido = data
-      });
+  // firebase.database().ref("users").on('value', (snapshot) => {
+  //       const data = snapshot.val()
+  //       console.log(data)
+  //       // updateStarCount(postElement, data)
+  //       // valorRecebido = data
+  //     });
+
 
 
 
@@ -204,28 +226,30 @@ let valorRecebido = null
 //==================================================================================//
 
 function inicioPagina() {
-  setTimeout(function(){ btnF5() }, 1000)//ESPERA 1 SEGUNDO E MOSTRA LISTA
+  // setTimeout(function(){ btnF5() }, 1000)//ESPERA 1 SEGUNDO E MOSTRA LISTA
+
 
 }
 
+let valorRecebido = null
+
 function btnF5(){   
-  console.log("Hello")
-  
+   
 
     if(valorRecebido == undefined){
       console.log("Sem daddos")
       return
     }  
 
-    let itens  = Object.values(valorRecebido)
-    console.log("Array",Array.isArray(itens),itens)
+    let itens  = Object.values(valorRecebido) //TRASNFORMA UM OBJETO EM ARRAY
+    // console.log("Array",Array.isArray(itens),itens)
 
 
 
   let tabela = document.getElementById("tabelaLista")
 
     itens.forEach(d => {
-      console.log(d)
+      // console.log(d)
       var linha = tabela.insertRow()
         linha.insertCell(0).innerHTML =  "#"	
         linha.insertCell(1).innerHTML =  d.name.first
