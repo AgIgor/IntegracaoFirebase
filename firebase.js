@@ -3,12 +3,13 @@
 const firebaseConfig = {
   apiKey: "AIzaSyAYGQq-JV81hYECP73faMCwzgk_Ay0Am-Y",
   authDomain: "databasefirebasefirestore.firebaseapp.com",
+  databaseURL: "https://databasefirebasefirestore-default-rtdb.firebaseio.com",
   projectId: "databasefirebasefirestore",
   storageBucket: "databasefirebasefirestore.appspot.com",
   messagingSenderId: "407141110375",
   appId: "1:407141110375:web:1b1ecc00c85aabd2713ac2",
   measurementId: "G-Y2QDD0H8NF"
-}
+};
 
 firebase.initializeApp(firebaseConfig)
 
@@ -128,9 +129,9 @@ function removerFirebase(){
 
 //CRIA VALORES
 
-// var igorNameRef = firebase.database().ref('users/igor/name');
-//     igorNameRef.child('first').set('Igor');
-//     igorNameRef.child('last').set('Angeli');
+//  var igorNameRef = firebase.database().ref('users/igor/name');
+//      igorNameRef.child('first').set('Igor');
+//      igorNameRef.child('last').set('Angeli');
 
 
 
@@ -142,11 +143,11 @@ function removerFirebase(){
 
 //POST DE VALORES COM IDs ALEATORIOS
 
-// var postListRef = firebase.database().ref('posts');
-// var newPostRef = postListRef.push();
-// newPostRef.set({
-//     // ...
-// });
+//  var postListRef = firebase.database().ref('posts');
+//  var newPostRef = postListRef.push();
+//  newPostRef.set({
+// 	 // ...
+//  });
 
 //REMOVE VALORES
 
@@ -205,19 +206,16 @@ function removerFirebase(){
 
 //DETECTAR ALTERAÇOES
 
-  // firebase.database().ref("users").on('value', (snapshot) => {
-  //       const data = snapshot.val()
-  //       console.log(data)
-  //       // updateStarCount(postElement, data)
-  //       // valorRecebido = data
-  //     });
+  firebase.database().ref("users").on('value', (snapshot) => {
+        const data = snapshot.val()
+        console.log(data)
+        // updateStarCount(postElement, data)
+        limpaPrint()
+        valorRecebido = data
+        printar()
+      });
 
 
-
-
-  
-
-  
   //RECUPERA KEY ID 
 
   // var KEY = firebase.database().ref().push().key
@@ -226,7 +224,8 @@ function removerFirebase(){
 //==================================================================================//
 
 function inicioPagina() {
-  // setTimeout(function(){ btnF5() }, 1000)//ESPERA 1 SEGUNDO E MOSTRA LISTA
+  // setTimeout(function(){  printar() }, 1500)//ESPERA 1 SEGUNDO E MOSTRA LISTA
+ 
 
 
 }
@@ -234,31 +233,8 @@ function inicioPagina() {
 let valorRecebido = null
 
 function btnF5(){   
+  location.reload()
    
-
-    if(valorRecebido == undefined){
-      console.log("Sem daddos")
-      return
-    }  
-
-    let itens  = Object.values(valorRecebido) //TRASNFORMA UM OBJETO EM ARRAY
-    // console.log("Array",Array.isArray(itens),itens)
-
-
-
-  let tabela = document.getElementById("tabelaLista")
-
-    itens.forEach(d => {
-      // console.log(d)
-      var linha = tabela.insertRow()
-        linha.insertCell(0).innerHTML =  "#"	
-        linha.insertCell(1).innerHTML =  d.name.first
-        linha.insertCell(2).innerHTML = d.name.last
-        linha.insertCell(3).innerHTML = d.id
-    })
-
-    
-
     // itens.forEach(myFunction)
 
     // function myFunction(item, index, arr){
@@ -266,9 +242,33 @@ function btnF5(){
 
     // }
 
-  
+}
+
+function limpaPrint(){
+  document.getElementById("tabelaLista").innerHTML = ""
+}
+
+function printar(){
+  if(valorRecebido == undefined){
+    console.log("Sem daddos")
+    return
+  }  
+
+  let itens  = Object.values(valorRecebido) //TRASNFORMA UM OBJETO EM ARRAY
+  // console.log("Array",Array.isArray(itens),itens)
 
 
+
+let tabela = document.getElementById("tabelaLista")
+
+  itens.forEach(d => {
+    // console.log(d)
+    var linha = tabela.insertRow()
+      linha.insertCell(0).innerHTML =  "#"	
+      linha.insertCell(1).innerHTML =  d.name.first
+      linha.insertCell(2).innerHTML = d.name.last
+      linha.insertCell(3).innerHTML = d.id
+  })
 }
 
 
