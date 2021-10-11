@@ -80,11 +80,50 @@ function removerFirestore(){
 
 
 
+
+
+function salvarFirebase(){
+  console.log("salvarBase")
+
+  let pai = document.getElementById("inRef").value
+  let filho = document.getElementById("inChild").value
+  let valor = document.getElementById("inSet1").value
+
+  dbBase.ref(pai).child(filho).set(valor)
+
+
+
+.then(() => {
+  console.log("Documento salvo!");
+})
+.catch((error) => {
+  console.error("Error: ", error);
+});
+
+
+
+}//end salva firebase
+
+
+function removerFirebase(){
+  let pai = document.getElementById("inRef").value
+  let filho = document.getElementById("inChild").value
+  let valor = document.getElementById("inSet1").value
+
+  dbBase.ref(pai).remove()
+
+
+
+.then(() => {
+  console.log("Documento salvo!");
+})
+.catch((error) => {
+  console.error("Error: ", error);
+});
+
+}//end remover firebase
+
 */
-
-
-
-
 
 //===========================================================================================//
 
@@ -134,11 +173,11 @@ function removerFirestore(){
 
 //RECUPERA VALOR EM NUVEM
 
-// const dbRef = firebase.database().ref("users/lastId")
+// const dbRef = firebase.database().ref("users")
 //       dbRef.get().then((snapshot) => {
 //         if (snapshot.exists()) {
-//           console.log(snapshot.val()) //PRINTA OU ENVIA VALOR RECEBIDO
-//           // valorRecebido = snapshot.val()
+//           // console.log(snapshot.val()) //PRINTA OU ENVIA VALOR RECEBIDO
+//           valorRecebido = snapshot.val()
 //           if(valorRecebido != null){
 //             console.log("Valor obtido",valorRecebido)
 //           }
@@ -151,27 +190,30 @@ function removerFirestore(){
 
 
 //RECUPERA VALORES E PRINTA INDIVIDUALMENTE      
-// firebase.database().ref("lastID").once('value', (snapshot) => {
-//     snapshot.forEach((childSnapshot) => {
-//       // var childKey = childSnapshot.key
-//       // var childData = childSnapshot.val()
-//       // console.log(childKey,childData)
-//       console.log(childSnapshot.val())
-//       // ...
-//     });
-//   });
+  // dbRef.once('value', (snapshot) => {
+  //   snapshot.forEach((childSnapshot) => {
+  //     var childKey = childSnapshot.key
+  //     var childData = childSnapshot.val()
 
+  //     console.log(childKey,childData)
+  //     // ...
+  //   });
+  // });
+
+
+
+      
 
 //DETECTAR ALTERAÇOES
 
-  // firebase.database().ref("users").on('value', (snapshot) => {
-  //       const data = snapshot.val()
-  //       console.log(data)
-  //       // updateStarCount(postElement, data)
-  //       limpaPrint()
-  //       valorRecebido = data
-  //       printar()
-  //     });
+  firebase.database().ref("users").on('value', (snapshot) => {
+        const data = snapshot.val()
+        console.log(data)
+        // updateStarCount(postElement, data)
+        limpaPrint()
+        valorRecebido = data
+        printar()
+      });
 
 
   //RECUPERA KEY ID 
@@ -181,46 +223,43 @@ function removerFirestore(){
 
 //==================================================================================//
 
-
-
 function inicioPagina() {
   // setTimeout(function(){  printar() }, 1500)//ESPERA 1 SEGUNDO E MOSTRA LISTA
+ 
 
-    firebase.database().ref("users").on('value', (snapshot) => {//ATULAIZA CONFORME O BACNO ATUALIZA
-      limpaPrint()
-      valorRecebido = snapshot.val()
-      printar()
-      recuperaID()
-    });
 
-}//end inicio pagina
-
-function recuperaID(){
-  firebase.database().ref("newID").once('value', (snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-    let newID = childSnapshot.val()
-    // console.log(newID)
-    document.getElementById("inId").value = newID  
-    });
-  });
-}//end recupera ID
+}
 
 let valorRecebido = null
 
+function btnF5(){   
+  location.reload()
+   
+    // itens.forEach(myFunction)
+
+    // function myFunction(item, index, arr){
+    //   console.log("for each",item)
+
+    // }
+
+}
+
 function limpaPrint(){
   document.getElementById("tabelaLista").innerHTML = ""
-}//end limpa print
+}
 
 function printar(){
   if(valorRecebido == undefined){
     console.log("Sem daddos")
     return
-  }
+  }  
 
   let itens  = Object.values(valorRecebido) //TRASNFORMA UM OBJETO EM ARRAY
   // console.log("Array",Array.isArray(itens),itens)
 
-  let tabela = document.getElementById("tabelaLista")
+
+
+let tabela = document.getElementById("tabelaLista")
 
   itens.forEach(d => {
     // console.log(d)
@@ -228,61 +267,9 @@ function printar(){
       linha.insertCell(0).innerHTML =  "#"	
       linha.insertCell(1).innerHTML =  d.name.first
       linha.insertCell(2).innerHTML = d.name.last
-      linha.insertCell(3).innerHTML = d.userID.ID
+      linha.insertCell(3).innerHTML = d.id
   })
-}//end printar
-
-function limpaCampos(){
-  document.getElementById("inNome").value = ""
-  document.getElementById("inSobrenome").value = ""
-
-}//end limpa campos
-
-function salvarFirebase(){
-  
-  recuperaID()//recupera ultimo id do banco
-
-  let nome = document.getElementById("inNome").value.toLowerCase().trim()//CONVERTE TEXTO EM CAIXA BAIXA E REMOVE ESPAÇOS
-  let sobreNome = document.getElementById("inSobrenome").value.toLowerCase().trim()
-  let id = document.getElementById("inId").value
-
-  id = parseInt(id)//converte string para inteiro
-  id += 1
-  id = id.toString()
-
-  nome = `${nome[0].toUpperCase()}${nome.slice(1)}` //TORNA LETRAS INICIAIS MAIUSCULAS
-  sobreNome = `${sobreNome[0].toUpperCase()}${sobreNome.slice(1)}`
-
-  firebase.database().ref('users').child(nome.toLowerCase()).child('name').update({ first: nome, last: sobreNome })
-  firebase.database().ref('users').child(nome.toLowerCase()).child('userID').update({ ID: id})
-  firebase.database().ref('newID').child('ID').set(id)
-
-  .then(() => {
-    console.log("User salvo!");
-  })
-  .catch((error) => {
-    console.error("Error: ", error);
-  });
-
-  limpaCampos()
-
-}//end salva firebase
-
-
-function removerFirebase(){
-  let user = document.getElementById("inNome").value.toLowerCase().trim() //CONVERTE TEXTO EM CAIXA BAIXA E REMOVE ESPAÇOS
-
-  firebase.database().ref('users').child(user).remove()
-  .then(() => {
-    console.log("User Removido!");
-  })
-  .catch((error) => {
-    console.error("Error: ", error);
-  });
-
-  limpaCampos()
-
-}//end remover firebase
+}
 
 
 
@@ -292,14 +279,52 @@ function removerFirebase(){
 
 
 
+//   db.collection("cars").doc().set(
+//     { nome : "civic",
+//       cor : "preto",
+//       portas : "4"  
+//     })
 
 
 
   // firebase.firestore().collection("users").doc().set()
 
 
-//OPERADOR TERNARIO
+
 
 // let val = true
 // val ? console.log("true"):console.log("false")
  
+
+//  let lista = {
+//             "users" : {
+//               "igor" : {
+//                 "name" : {
+//                   "first" : "Igor",
+//                   "last" : "Angeli"
+//                 },
+//                 "id" : 001
+//               },
+//               "maui" : {
+//                 "name" : {
+//                   "first" : "Maui",
+//                   "last" : "Ddog"
+//                 },
+//                 "id" : 002
+//               },
+//               "mari" : {
+//                 "name" : {
+//                   "first" : "Mari",
+//                   "last" : "Cesaretti"
+//                 },
+//                 "id" : 003
+//               },
+//               "teste" : {
+//                 "name" : {
+//                   "first" : "Teste",
+//                   "last" : "123"
+//                 },
+//                 "id" : 004
+//               }
+//             }
+//           }
