@@ -1,5 +1,3 @@
-
-
 const firebaseConfig = {
   apiKey: "AIzaSyAYGQq-JV81hYECP73faMCwzgk_Ay0Am-Y",
   authDomain: "databasefirebasefirestore.firebaseapp.com",
@@ -181,7 +179,8 @@ function removerFirestore(){
 
 //==================================================================================//
 
-
+let valorRecebido = null;
+let lastId = null
 
 function inicioPagina() {
   // setTimeout(function(){  printar() }, 1500)//ESPERA 1 SEGUNDO E MOSTRA LISTA
@@ -190,22 +189,28 @@ function inicioPagina() {
       limpaPrint()
       valorRecebido = snapshot.val()
       printar()
-      recuperaID()
     });
-
+    recuperaID();    
 }//end inicio pagina
 
+
 function recuperaID(){
-  firebase.database().ref("newID").once('value', (snapshot) => {
+  firebase.database().ref("lastId").once('value', (snapshot) => {
     snapshot.forEach((childSnapshot) => {
     let newID = childSnapshot.val()
-    // console.log(newID)
-    document.getElementById("inId").value = newID  
+    //console.log(newID)
+    document.getElementById("inId").value = newID 
+    lastId = newID 
     });
   });
 }//end recupera ID
 
-let valorRecebido = null
+function incrementId(){
+  firebase.database().ref('lastId/id').transaction(function(valorAtual) {        
+    return valorAtual += 1
+  });  
+}//end incrementa id
+
 
 function limpaPrint(){
   document.getElementById("tabelaLista").innerHTML = ""
@@ -219,18 +224,50 @@ function printar(){
 
   let itens  = Object.values(valorRecebido) //TRASNFORMA UM OBJETO EM ARRAY
   // console.log("Array",Array.isArray(itens),itens)
+  
+  let quantidade_users = itens.length
+  document.getElementById("val").innerText = quantidade_users
 
   let tabela = document.getElementById("tabelaLista")
 
   itens.forEach(d => {
-    // console.log(d)
+    //  console.log(d)
     var linha = tabela.insertRow()
-      linha.insertCell(0).innerHTML =  "#"	
+    let btn = document.createElement("button")
+        btn.className = "btn btn-outline"
+        btn.innerHTML = '<img src="trash.svg" alt="Excluir">'
+   
+    let first = `${d.name.first}`//d.name.first.toLowerCase().trim().replace(' ','_') +'_'+ d.name.last.toLowerCase().trim().replace(' ','_')
+    let last = `${d.name.last}`
+
+      while(first.includes(' ') || last.includes(' ')){
+        first = first.toLowerCase().trim().replace(' ','_')
+        last = last.toLowerCase().trim().replace(' ','_')
+      }
+
+      btn.id = `${first}_${last}`//d.name.first + d.name.last//d.id
+      btn.onclick = function(){
+        clickDelete(this.id)
+      }
+      linha.insertCell(0).append(btn)
       linha.insertCell(1).innerHTML =  d.name.first
       linha.insertCell(2).innerHTML = d.name.last
-      linha.insertCell(3).innerHTML = d.userID.ID
+      linha.insertCell(3).innerHTML = d.email
+      linha.insertCell(4).innerHTML = d.id
   })
 }//end printar
+
+function clickDelete(id){
+  // console.log(id)
+
+  firebase.database().ref('users/').child(id).remove()
+  .then(() => {
+    console.log("User Removido!");
+  })
+  .catch((error) => {
+    console.error("Error: ", error);
+  });
+}
 
 function limpaCampos(){
   document.getElementById("inNome").value = ""
@@ -239,50 +276,83 @@ function limpaCampos(){
 }//end limpa campos
 
 function salvarFirebase(){
-  
-  recuperaID()//recupera ultimo id do banco
 
-  let nome = document.getElementById("inNome").value.toLowerCase().trim()//CONVERTE TEXTO EM CAIXA BAIXA E REMOVE ESPAÇOS
-  let sobreNome = document.getElementById("inSobrenome").value.toLowerCase().trim()
-  let id = document.getElementById("inId").value
+  let key = firebase.database().ref().child("users").push().key;
+  let val = firebase.database.ServerValue.increment(1);
 
-  id = parseInt(id)//converte string para inteiro
-  id += 1
-  id = id.toString()
+  let path = getDados('path')
 
-  nome = `${nome[0].toUpperCase()}${nome.slice(1)}` //TORNA LETRAS INICIAIS MAIUSCULAS
-  sobreNome = `${sobreNome[0].toUpperCase()}${sobreNome.slice(1)}`
-
-  firebase.database().ref('users').child(nome.toLowerCase()).child('name').update({ first: nome, last: sobreNome })
-  firebase.database().ref('users').child(nome.toLowerCase()).child('userID').update({ ID: id})
-  firebase.database().ref('newID').child('ID').set(id)
+  firebase.database().ref(path).update({
+    name: {"first": getDados('nome_first'),"last": getDados('nome_last')},
+    email: getDados('email'),
+    last_key: key,
+    updates: val,
+    id : lastId + 1
+  })
 
   .then(() => {
     console.log("User salvo!");
+    incrementId();
+    recuperaID();
+
   })
   .catch((error) => {
     console.error("Error: ", error);
   });
 
   limpaCampos()
-
 }//end salva firebase
 
 
-function removerFirebase(){
-  let user = document.getElementById("inNome").value.toLowerCase().trim() //CONVERTE TEXTO EM CAIXA BAIXA E REMOVE ESPAÇOS
+// function removerFirebase(){
 
-  firebase.database().ref('users').child(user).remove()
-  .then(() => {
-    console.log("User Removido!");
-  })
-  .catch((error) => {
-    console.error("Error: ", error);
-  });
+//   firebase.database().ref('users/').child(getDados('user_name')).remove()
+//   .then(() => {
+//     console.log("User Removido!");
+//   })
+//   .catch((error) => {
+//     console.error("Error: ", error);
+//   });
+ 
+//   limpaCampos()
 
-  limpaCampos()
+// }//end remover firebase
 
-}//end remover firebase
+function getDados(modo){
+  let first = document.getElementById("inNome").value.toLowerCase().trim()//CONVERTE TEXTO EM CAIXA BAIXA E REMOVE ESPAÇOS
+  let last = document.getElementById("inSobrenome").value.toLowerCase().trim()
+
+  while(first.includes(' ') || last.includes(' ')){
+    first = first.toLowerCase().trim().replace(' ','_')
+    last = last.toLowerCase().trim().replace(' ','_')
+  }//enquanto houver espaços ele troca por _
+
+  let user_name = `${first}_${last}`
+  let email =  `${first}_${last}@outlook.com` 
+  let path = 'users/'+user_name
+
+  // first = `${first[0].toUpperCase()}${first.slice(1)}` //TORNA LETRAS INICIAIS MAIUSCULAS
+  // last = `${last[0].toUpperCase()}${last.slice(1)}`
+
+  if(modo == 'path'){
+    return path;
+  }
+  if(modo == 'user_name'){
+    return user_name
+  }
+  if(modo == 'nome_first'){
+    return first
+  }
+  if(modo == 'nome_last'){
+    return last
+  }
+  if(modo == 'email'){
+    return email
+  }
+
+}//end get dados
+
+
 
 
 
