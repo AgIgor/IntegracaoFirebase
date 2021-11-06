@@ -11,6 +11,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
+
+
 // const dbBase = firebase.database()
 // const dbStore = firebase.firestore()
 /*
@@ -199,7 +201,7 @@ function recuperaID(){
     snapshot.forEach((childSnapshot) => {
     let newID = childSnapshot.val()
     //console.log(newID)
-    document.getElementById("inId").value = newID 
+    // document.getElementById("inId").value = newID 
     lastId = newID 
     });
   });
@@ -235,7 +237,7 @@ function printar(){
     var linha = tabela.insertRow()
     let btn = document.createElement("button")
         btn.className = "btn btn-outline"
-        btn.innerHTML = '<img src="trash.svg" alt="Excluir">'
+        btn.innerHTML = '<i class="bi bi-trash"></i>'//'<img src="trash.svg" alt="Excluir">'
    
     let first = `${d.name.first}`//d.name.first.toLowerCase().trim().replace(' ','_') +'_'+ d.name.last.toLowerCase().trim().replace(' ','_')
     let last = `${d.name.last}`
@@ -304,20 +306,6 @@ function salvarFirebase(){
 }//end salva firebase
 
 
-// function removerFirebase(){
-
-//   firebase.database().ref('users/').child(getDados('user_name')).remove()
-//   .then(() => {
-//     console.log("User Removido!");
-//   })
-//   .catch((error) => {
-//     console.error("Error: ", error);
-//   });
- 
-//   limpaCampos()
-
-// }//end remover firebase
-
 function getDados(modo){
   let first = document.getElementById("inNome").value.toLowerCase().trim()//CONVERTE TEXTO EM CAIXA BAIXA E REMOVE ESPAÇOS
   let last = document.getElementById("inSobrenome").value.toLowerCase().trim()
@@ -331,8 +319,6 @@ function getDados(modo){
   let email =  `${first}_${last}@outlook.com` 
   let path = 'users/'+user_name
 
-  // first = `${first[0].toUpperCase()}${first.slice(1)}` //TORNA LETRAS INICIAIS MAIUSCULAS
-  // last = `${last[0].toUpperCase()}${last.slice(1)}`
 
   if(modo == 'path'){
     return path;
